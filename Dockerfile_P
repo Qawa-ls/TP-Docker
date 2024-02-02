@@ -2,7 +2,7 @@
 FROM php:5-apache
 
 # Définition des variables d'environnement (peut aussi être fait via docker-compose ou la commande docker run)
-ENV MYSQL_HOST=172.17.0.2
+ENV MYSQL_HOST=db
 ENV MYSQL_ROOT_PASSWORD=root
 
 # Copie des fichiers de votre application dans le conteneur
