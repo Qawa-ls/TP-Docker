@@ -1,0 +1,12 @@
+# Utilisation de l'image MySQL 5.7
+FROM mysql:5.7
+
+# Définition des variables d'environnement (peut aussi être fait via docker-compose ou la commande docker run)
+ENV MYSQL_DATABASE=gestion_produits
+ENV MYSQL_ROOT_PASSWORD=root
+
+# Copie des scripts SQL pour l'initialisation de la base de données
+COPY ./database/ /docker-entrypoint-initdb.d/
+
+# Exposition du port (le port est déjà exposé dans l'image MySQL officielle, donc cette ligne est optionnelle)
+EXPOSE 3306
