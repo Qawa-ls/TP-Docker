@@ -1,0 +1,37 @@
+version: "3.1"
+
+services:
+  web:
+    container_name: php
+    build: .
+    ports:
+      - 80:80
+    links:
+      - db
+      - minio
+    environment:
+      MYSQL_HOST: 'db'
+      MYSQL_ROOT_PASSWORD: 'root'
+      MINIO_ACCESS_KEY: 5ye64pkNHs7X8N
+      MINIO_SECRET_KEY: 7s8XN5yH46pekN
+
+  db:
+    container_name: mysql
+    image: mysql:5.7
+    ports :
+      - 3306:3306
+    environment:
+      - MYSQL_DATABASE=gestion_produits
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ./database/:/docker-entrypoint-initdb.d
+
+  minio:
+    container_name: minio
+    image: minio/minio
+    environment:
+      MINIO_ACCESS_KEY: 5ye64pkNHs7X8N
+      MINIO_SECRET_KEY: 7s8XN5yH46pekN
+    ports:
+      - "9001:9000"
+    command: server /uploads
